@@ -1,11 +1,7 @@
-import dotenv from 'dotenv';
 import express from "express";
 import cors from "cors";
-import mongoose from 'mongoose';
 import connectDB from "./config/db.js";
 import contactRoutes from "./routes/contactRoutes.js";
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,9 +13,7 @@ app.use(cors({
     credentials: true
 }));
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+connectDB();
 
 app.use("/api/contact", contactRoutes);
 
